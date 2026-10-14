@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+
+<aside th:fragment="sidebar(activePage)" class="sidebar">
+
+    <div class="sidebar-label">MAIN MENU</div>
+
+    <!-- Common Dashboard: Admin and User -->
+    <a class="sidebar-link"
+       th:classappend="${activePage == 'dashboard'} ? ' active' : ''"
+       th:href="@{/dashboard}">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+    </a>
+
+    <!-- USER FEATURES -->
+    <div sec:authorize="hasRole('USER')">
+
+        <a class="sidebar-link"
+           th:classappend="${activePage == 'reservation'} ? ' active' : ''"
+           th:href="@{/reservation}">
+            <span class="nav-icon">🎫</span>
+            Book Ticket
+        </a>
+
+        <a class="sidebar-link"
+           th:classappend="${activePage == 'search'} ? ' active' : ''"
+           th:href="@{/trains/search}">
+            <span class="nav-icon">🔎</span>
+            Search Trains
+        </a>
+
+        <a class="sidebar-link"
+           th:classappend="${activePage == 'bookings'} ? ' active' : ''"
+           th:href="@{/my-bookings}">
+            <span class="nav-icon">▤</span>
+            My Bookings
+        </a>
+
+        <a class="sidebar-link"
+           th:classappend="${activePage == 'cancel'} ? ' active' : ''"
+           th:href="@{/cancel}">
+            <span class="nav-icon">⊗</span>
+            Cancel Booking
+        </a>
+
+        <a class="sidebar-link"
+           th:classappend="${activePage == 'pnr'} ? ' active' : ''"
+           th:href="@{/pnr-status}">
+            <span class="nav-icon">🔍</span>
+            PNR Status
+        </a>
+
+    </div>
+
+    <!-- ADMIN FEATURES -->
+    <div sec:authorize="hasRole('ADMIN')">
+
+        <a class="sidebar-link"
+           th:classappend="${activePage == 'admin'} ? ' active' : ''"
+           th:href="@{/admin/trains}">
+            <span class="nav-icon">⚙</span>
+            Manage Trains
+        </a>
+
+    </div>
+
+</aside>
+
+</body>
+</html>
